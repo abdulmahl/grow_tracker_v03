@@ -46,11 +46,12 @@ interface CycleDetailProps {
   cycle: {
     id: string;
     strainName: string;
-    stage: string;
+    stage: "Seedling" | "Vegetative" | "Flowering" | "Harvested";
     medium: string;
     startDate: string;
     tentSize?: string;
     lightSpec?: string;
+    environment?: "Indoor" | "Outdoor" | "Green House";
   };
   onBack: () => void;
   onUpdateCycleStage: (cycleId: string, newStage: string) => void;
@@ -240,7 +241,7 @@ export default function CycleDetail({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <button
           onClick={onBack}
-          className="flex items-center space-x-2 text-xs font-semibold text-slate-400 hover:text-slate-100 transition"
+          className="cursor-pointer flex items-center space-x-2 text-xs font-semibold text-slate-400 hover:text-slate-100 transition"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Dashboard</span>
@@ -248,24 +249,26 @@ export default function CycleDetail({
 
         {/* Stage Selector */}
         <div className="flex items-center space-x-1 bg-slate-900 border border-slate-800 p-1 rounded-xl overflow-x-auto">
-          {["Seedling", "Vegetative", "Flowering", "Harvested"].map((stage) => (
-            <button
-              key={stage}
-              onClick={async () => {
-                const cycleRef = doc(db, "users", userId, "cycles", cycle.id);
-                await updateDoc(cycleRef, { stage });
-                setCurrentStage(stage);
-                onUpdateCycleStage(cycle.id, stage);
-              }}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition whitespace-nowrap ${
-                currentStage === stage
-                  ? "bg-botanical-600 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              {stage}
-            </button>
-          ))}
+          {(["Seedling", "Vegetative", "Flowering", "Harvested"] as const).map(
+            (stage) => (
+              <button
+                key={stage}
+                onClick={async () => {
+                  const cycleRef = doc(db, "users", userId, "cycles", cycle.id);
+                  await updateDoc(cycleRef, { stage });
+                  setCurrentStage(stage);
+                  onUpdateCycleStage(cycle.id, stage);
+                }}
+                className={`cursor-pointer px-3 py-1 rounded-lg text-xs font-medium transition whitespace-nowrap ${
+                  currentStage === stage
+                    ? "bg-botanical-600 text-slate-950 font-bold"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                {stage}
+              </button>
+            ),
+          )}
         </div>
       </div>
 
@@ -274,12 +277,19 @@ export default function CycleDetail({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-botanical-950 text-botanical-400 border border-botanical-800">
-                {currentStage}
-              </span>
-              {cycle.tentSize && (
-                <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-                  {cycle.tentSize} Tent
+              {cycle.stage && (
+                <span
+                  className={`px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-botanical-950 border ${cycle.stage === "Seedling" ? "border-sky-600" : cycle.stage === "Vegetative" ? "border-botanical-800" : "border-amber-300"}`}
+                >
+                  {cycle.stage}
+                </span>
+              )}
+
+              {cycle.environment && (
+                <span
+                  className={`px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-slate-800 text-slate-300 border ${cycle.environment === "Indoor" ? "border-purple-800" : cycle.environment === "Outdoor" ? "border-green-600" : "border-amber-800"} `}
+                >
+                  {cycle.environment}
                 </span>
               )}
             </div>

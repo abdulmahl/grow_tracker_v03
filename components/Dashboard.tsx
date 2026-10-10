@@ -21,7 +21,7 @@ import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 export interface Cycle {
   id: string;
   strainName: string;
-  stage: string;
+  stage: "Seedling" | "Vegetative" | "Flowering";
   medium: string;
   startDate: string;
   tentSize?: string;
@@ -124,7 +124,7 @@ export default function Dashboard({
               <button
                 key={status}
                 onClick={() => setFilterStatus(status)}
-                className={`px-3 py-1.5 rounded-lg capitalize font-semibold transition ${
+                className={`cursor-pointer px-3 py-1.5 rounded-lg capitalize font-semibold transition ${
                   filterStatus === status
                     ? "bg-botanical-500 text-slate-950 shadow-md"
                     : "text-slate-400 hover:text-slate-200"
@@ -138,7 +138,7 @@ export default function Dashboard({
           {/* Add Cycle Button */}
           <button
             onClick={onOpenNewCycleModal}
-            className="px-3 py-2 bg-botanical-500 hover:bg-botanical-400 text-slate-950 font-bold rounded-xl text-xs transition flex items-center md:space-x-1.5 shadow-lg shadow-botanical-950/40 shrink-0"
+            className="cursor-pointer px-3 py-2 bg-botanical-500 hover:bg-botanical-400 text-slate-950 font-bold rounded-xl text-xs transition flex items-center md:space-x-1.5 shadow-lg shadow-botanical-950/40 shrink-0"
           >
             <Plus className="w-4 h-4" />
             <span className="hidden md:block">New Cycle</span>
@@ -178,10 +178,14 @@ export default function Dashboard({
                 {/* Header Badges & Actions */}
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-botanical-950 text-botanical-400 border border-botanical-800">
+                    <span
+                      className={`px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-botanical-950 text-botanical-400 border ${cycle.stage === "Seedling" ? "border-sky-600" : cycle.stage === "Vegetative" ? "border-botanical-800" : "border-amber-300"}`}
+                    >
                       {cycle.stage}
                     </span>
-                    <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-botanical-950 text-botanical-400 border border-botanical-800">
+                    <span
+                      className={`px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-botanical-950 text-botanical-400 border ${cycle.environment === "Indoor" ? "border-purple-800" : cycle.environment === "Outdoor" ? "border-green-600" : "border-amber-800"} `}
+                    >
                       {cycle.environment}
                     </span>
                     {cycle.status === "completed" && (
@@ -199,14 +203,14 @@ export default function Dashboard({
                   >
                     <button
                       onClick={() => onOpenEditModal(cycle)}
-                      className="p-1.5 text-slate-400 hover:text-sky-400 transition rounded-md"
+                      className="cursor-pointer p-1.5 text-slate-400 hover:text-sky-400 transition rounded-md"
                       title="Edit Cycle"
                     >
                       <Edit3 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => setDeletingCycle(cycle)}
-                      className="p-1.5 text-slate-400 hover:text-rose-400 transition rounded-md"
+                      className="cursor-pointer p-1.5 text-slate-400 hover:text-rose-400 transition rounded-md"
                       title="Delete Cycle"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -297,7 +301,7 @@ export default function Dashboard({
                     e.stopPropagation();
                     onSelectCycle(cycle.id);
                   }}
-                  className="px-3 py-1.5 bg-slate-800 group-hover:bg-botanical-500 group-hover:text-slate-950 text-slate-200 text-xs font-semibold rounded-xl transition-all duration-200 flex items-center space-x-1"
+                  className="cursor-pointer px-3 py-1.5 bg-slate-800 group-hover:bg-botanical-500 group-hover:text-slate-950 text-slate-200 text-xs font-semibold rounded-xl transition-all duration-200 flex items-center space-x-1"
                 >
                   <span className="hidden md:block">Open Logs & Chart</span>
                   <span className="md:hidden block truncate">Logs & Chart</span>

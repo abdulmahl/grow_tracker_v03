@@ -12,7 +12,7 @@ interface EditCycleModalProps {
   cycle: {
     id: string;
     strainName: string;
-    environment: "Indoor" | "Outdoor";
+    environment: "Indoor" | "Outdoor" | "Green House";
     stage: string;
     medium: string;
     startDate: string;
@@ -23,7 +23,9 @@ interface EditCycleModalProps {
     notes?: string;
     status?: "active" | "completed" | "archived";
   } | null;
-  onCycleUpdated: (updatedCycle: any) => void;
+  onCycleUpdated: (
+    updatedCycle: NonNullable<EditCycleModalProps["cycle"]>,
+  ) => void;
 }
 
 export default function EditCycleModal({
@@ -35,9 +37,9 @@ export default function EditCycleModal({
 }: EditCycleModalProps) {
   // Initialize state directly from props (No useEffect needed)
   const [strainName, setStrainName] = useState(cycle?.strainName || "");
-  const [environment, setEnvironment] = useState<string>(
-    cycle?.environment || "Indoor",
-  );
+  const [environment, setEnvironment] = useState<
+    "Indoor" | "Outdoor" | "Green House"
+  >(cycle?.environment || "Indoor");
   const [stage, setStage] = useState(cycle?.stage || "vegetative");
   const [medium, setMedium] = useState(
     cycle?.medium || "Coco Coir / Perlite (70/30)",
@@ -147,7 +149,11 @@ export default function EditCycleModal({
               </label>
               <select
                 value={status}
-                onChange={(e) => setStatus(e.target.value as any)}
+                onChange={(e) =>
+                  setStatus(
+                    e.target.value as "active" | "completed" | "archived",
+                  )
+                }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-botanical-500 capitalize"
               >
                 <option value="active">Active</option>
@@ -205,11 +211,16 @@ export default function EditCycleModal({
               </label>
               <select
                 value={environment}
-                onChange={(e) => setEnvironment(e.target.value)}
+                onChange={(e) =>
+                  setEnvironment(
+                    e.target.value as "Indoor" | "Outdoor" | "Green House",
+                  )
+                }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-botanical-500 capitalize"
               >
                 <option value="Indoor">Indoor</option>
                 <option value="Outdoor">Outdoor</option>
+                <option value="Green House">Green House</option>
               </select>
             </div>
           </div>
