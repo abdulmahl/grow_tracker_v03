@@ -233,7 +233,7 @@ export default function EditCycleModal({
               >
                 <option value="Indoor">Indoor</option>
                 <option value="Outdoor">Outdoor</option>
-                <option value="Green House">Green House</option>
+                <option value="Green-House">Green House</option>
               </select>
             </div>
           </div>
