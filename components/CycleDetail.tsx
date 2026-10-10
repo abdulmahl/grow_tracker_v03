@@ -146,8 +146,40 @@ export default function CycleDetail({
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setPhotoBase64(reader.result as string);
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.onload = () => {
+        // Create canvas to downscale large phone photos
+        const canvas = document.createElement("canvas");
+        const MAX_DIMENSION = 1024;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_DIMENSION) {
+            height *= MAX_DIMENSION / width;
+            width = MAX_DIMENSION;
+          }
+        } else {
+          if (height > MAX_DIMENSION) {
+            width *= MAX_DIMENSION / height;
+            height = MAX_DIMENSION;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Compress image to JPEG format with 0.7 quality to stay well under Firestore's 1MB limit
+        const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+        setPhotoBase64(compressedBase64);
+      };
+      img.src = event.target?.result as string;
     };
     reader.readAsDataURL(file);
   };
