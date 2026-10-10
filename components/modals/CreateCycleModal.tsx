@@ -10,7 +10,21 @@ interface CycleModalProps {
   isOpen: boolean;
   onClose: () => void;
   userId: string;
-  onCycleCreated: (newCycle: any) => void;
+  onCycleCreated: (newCycle: {
+    id: string;
+    strainName: string;
+    environment: "Indoor" | "Outdoor" | "Green House";
+    stage: "Seedling" | "Vegetative" | "Flowering" | "Harvested";
+    medium: string;
+    startDate: string;
+    tentSize?: string;
+    lightSpec?: "Sunlight" | "Grow Light";
+    targetEc?: number;
+    targetPh?: number;
+    notes?: string;
+    status?: "active" | "completed" | "archived";
+    createdAt: ReturnType<typeof serverTimestamp>;
+  }) => void;
 }
 
 export default function CreateCycleModal({
@@ -20,9 +34,13 @@ export default function CreateCycleModal({
   onCycleCreated,
 }: CycleModalProps) {
   const [strainName, setStrainName] = useState("");
-  const [environment, setEnvironment] = useState("Indoor");
-  const [medium, setMedium] = useState("Coco/Perlite");
-  const [stage, setStage] = useState("seedling");
+  const [environment, setEnvironment] = useState<
+    "Indoor" | "Outdoor" | "Green House"
+  >("Indoor");
+  const [medium, setMedium] = useState("Coco");
+  const [stage, setStage] = useState<
+    "Seedling" | "Vegetative" | "Flowering" | "Harvested"
+  >("Seedling");
   const [startDate, setStartDate] = useState(
     new Date().toISOString().split("T")[0],
   );
@@ -62,8 +80,8 @@ export default function CreateCycleModal({
       onCycleCreated({ id: docRef.id, ...cycleData });
       setStrainName("");
       onClose();
-    } catch (err: any) {
-      setError(err.message || "Failed to create cycle.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to create cycle.");
     } finally {
       setLoading(false);
     }
@@ -131,9 +149,9 @@ export default function CreateCycleModal({
               onChange={(e) => setMedium(e.target.value)}
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-botanical-500"
             >
-              <option value="Coco/Perlite">Coco / Perlite</option>
-              <option value="Soil / Organic">Soil / Organic</option>
-              <option value="DWC / Hydroponics">DWC / Hydroponics</option>
+              <option value="Coco/Perlite">Coco</option>
+              <option value="Soil / Organic">Soil</option>
+              <option value="DWC / Hydroponics">DWC</option>
               <option value="Rockwool">Rockwool</option>
             </select>
           </div>
@@ -144,11 +162,16 @@ export default function CreateCycleModal({
             </label>
             <select
               value={environment}
-              onChange={(e) => setEnvironment(e.target.value)}
+              onChange={(e) =>
+                setEnvironment(
+                  e.target.value as "Indoor" | "Outdoor" | "Green House",
+                )
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-botanical-500"
             >
               <option value="Indoor">Indoor</option>
               <option value="Outdoor">Outdoor</option>
+              <option value="Green-House">Green House</option>
             </select>
           </div>
 
@@ -158,12 +181,21 @@ export default function CreateCycleModal({
             </label>
             <select
               value={stage}
-              onChange={(e) => setStage(e.target.value)}
+              onChange={(e) =>
+                setStage(
+                  e.target.value as
+                    | "Seedling"
+                    | "Vegetative"
+                    | "Flowering"
+                    | "Harvested",
+                )
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-botanical-500"
             >
-              <option value="seedling">Seedling</option>
-              <option value="vegetative">Vegetative</option>
-              <option value="flowering">Flowering</option>
+              <option value="Seedling">Seedling</option>
+              <option value="Vegetative">Vegetative</option>
+              <option value="Flowering">Flowering</option>
+              <option value="Harvested">Harvested</option>
             </select>
           </div>
 

@@ -509,8 +509,8 @@ export default function CycleDetail({
 
         {/* History / Photo Journal Panel */}
         <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div className="flex space-x-2">
+          <div className=" border-b border-slate-800 pb-3">
+            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:justify-between">
               <button
                 onClick={() => setActiveTab("logs")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition ${
@@ -520,19 +520,21 @@ export default function CycleDetail({
                 }`}
               >
                 <Droplets className="w-3.5 h-3.5" />
-                <span>Fertigation Logs</span>
+                <span className="truncate">Fertigation Logs</span>
               </button>
 
               <button
                 onClick={() => setActiveTab("photos")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition ${
+                className={`px-3 py-1.5 border rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition ${
                   activeTab === "photos"
                     ? "bg-botanical-600 text-slate-950"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
               >
                 <Grid className="w-3.5 h-3.5" />
-                <span>Photo Journal ({photoLogs.length})</span>
+                <span className="truncate">
+                  Photo Journal ({photoLogs.length})
+                </span>
               </button>
             </div>
           </div>

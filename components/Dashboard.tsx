@@ -21,11 +21,11 @@ import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 export interface Cycle {
   id: string;
   strainName: string;
-  stage: "Seedling" | "Vegetative" | "Flowering";
+  stage: "Seedling" | "Vegetative" | "Flowering" | "Harvested";
   medium: string;
   startDate: string;
   tentSize?: string;
-  lightSpec?: string;
+  lightSpec?: "Sunlight" | "Grow Light";
   targetEc?: number;
   targetPh?: number;
   status?: "active" | "completed" | "archived";

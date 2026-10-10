@@ -17,7 +17,7 @@ interface EditCycleModalProps {
     medium: string;
     startDate: string;
     tentSize?: string;
-    lightSpec?: string;
+    lightSpec?: "Sunlight" | "Grow Light";
     targetEc?: number;
     targetPh?: number;
     notes?: string;
@@ -40,14 +40,16 @@ export default function EditCycleModal({
   const [environment, setEnvironment] = useState<
     "Indoor" | "Outdoor" | "Green House"
   >(cycle?.environment || "Indoor");
-  const [stage, setStage] = useState(cycle?.stage || "vegetative");
+  const [stage, setStage] = useState(cycle?.stage || "Vegetative");
   const [medium, setMedium] = useState(
-    cycle?.medium || "Coco Coir / Perlite (70/30)",
+    cycle?.medium || "Coco Coir / Perlite (80/20)",
   );
   const [tentSize, setTentSize] = useState(cycle?.tentSize || "4x4 Tent");
-  const [lightSpec, setLightSpec] = useState(cycle?.lightSpec || "400W LED");
+  const [lightSpec, setLightSpec] = useState<"Sunlight" | "Grow Light">(
+    cycle?.lightSpec || "Grow Light",
+  );
   const [targetEc, setTargetEc] = useState(
-    cycle?.targetEc ? String(cycle.targetEc) : "1.4",
+    cycle?.targetEc ? String(cycle.targetEc) : "1400",
   );
   const [targetPh, setTargetPh] = useState(
     cycle?.targetPh ? String(cycle.targetPh) : "5.8",
@@ -166,7 +168,7 @@ export default function EditCycleModal({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">
-                Grow Tent Dimensions
+                Setup
               </label>
               <input
                 type="text"
@@ -179,15 +181,18 @@ export default function EditCycleModal({
 
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">
-                LED Light Output
+                Light Source
               </label>
-              <input
-                type="text"
+              <select
                 value={lightSpec}
-                onChange={(e) => setLightSpec(e.target.value)}
-                placeholder="e.g. 400W Full Spectrum LED"
+                onChange={(e) =>
+                  setLightSpec(e.target.value as "Sunlight" | "Grow Light")
+                }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-botanical-500"
-              />
+              >
+                <option value="Sunlight">Sunlight</option>
+                <option value="Grow Light">Grow Light</option>
+              </select>
             </div>
           </div>
 
