@@ -81,7 +81,7 @@ export default function Header({
                 </span>
                 <button
                   onClick={onLogout}
-                  className="text-slate-400 hover:text-rose-400 transition p-0.5"
+                  className="cursor-pointer text-slate-400 hover:text-rose-400 transition p-0.5"
                   title="Log Out"
                 >
                   <LogOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -92,7 +92,7 @@ export default function Header({
               <div className="hidden md:flex items-center space-x-2">
                 <button
                   onClick={() => onOpenModal("database")}
-                  className="px-3 py-1.5 text-xs md:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-sky-300 border border-sky-800/60 rounded-lg transition flex items-center space-x-1.5 shadow-sm"
+                  className="cursor-pointer px-3 py-1.5 text-xs md:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-sky-300 border border-sky-800/60 rounded-lg transition flex items-center space-x-1.5 shadow-sm"
                 >
                   <Database className="w-4 h-4 text-sky-400" />
                   <span>Database</span>
@@ -100,7 +100,7 @@ export default function Header({
 
                 <button
                   onClick={() => onOpenModal("reminders")}
-                  className="px-3 py-1.5 text-xs md:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-800/60 rounded-lg transition flex items-center space-x-1.5 shadow-sm"
+                  className="cursor-pointer px-3 py-1.5 text-xs md:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-800/60 rounded-lg transition flex items-center space-x-1.5 shadow-sm"
                 >
                   <Bell className="w-4 h-4 text-amber-400" />
                   <span>Reminders</span>
@@ -108,7 +108,7 @@ export default function Header({
 
                 <button
                   onClick={() => onOpenModal("nutrient")}
-                  className="px-3 py-1.5 text-xs md:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-botanical-300 border border-botanical-800/60 rounded-lg transition flex items-center space-x-1.5 shadow-sm"
+                  className="cursor-pointer px-3 py-1.5 text-xs md:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-botanical-300 border border-botanical-800/60 rounded-lg transition flex items-center space-x-1.5 shadow-sm"
                 >
                   <FlaskConical className="w-4 h-4 text-botanical-400" />
                   <span>Nutrient Calc</span>
@@ -118,7 +118,7 @@ export default function Header({
               {/* Always Visible Primary Action */}
               <button
                 onClick={() => onOpenModal("cycle")}
-                className="px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-semibold bg-botanical-600 hover:bg-botanical-500 text-slate-950 rounded-lg transition flex items-center space-x-1 shadow-lg shadow-botanical-900/40 shrink-0"
+                className="cursor-pointer px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-semibold bg-botanical-600 hover:bg-botanical-500 text-slate-950 rounded-lg transition flex items-center md:space-x-1 shadow-lg shadow-botanical-900/40 shrink-0"
               >
                 <Plus className="w-4 h-4" />
                 <span className="hidden min-[400px]:inline">New Cycle</span>
@@ -127,7 +127,7 @@ export default function Header({
               {/* Mobile Menu Toggle Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-1.5 text-slate-300 hover:text-white bg-slate-800 border border-slate-700/60 rounded-lg transition"
+                className="cursor-pointer md:hidden p-1.5 text-slate-300 hover:text-white bg-slate-800 border border-slate-700/60 rounded-lg transition"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? (
@@ -146,7 +146,7 @@ export default function Header({
         <div className="md:hidden mt-3 pt-3 border-t border-slate-800 grid grid-cols-3 gap-2 animate-in fade-in slide-in-from-top-2 duration-200">
           <button
             onClick={() => handleModalClick("database")}
-            className="flex flex-col items-center justify-center p-2 text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-sky-300 border border-sky-800/50 rounded-lg transition text-center gap-1"
+            className="cursor-pointer flex flex-col items-center justify-center p-2 text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-sky-300 border border-sky-800/50 rounded-lg transition text-center gap-1"
           >
             <Database className="w-4 h-4 text-sky-400" />
             <span>Database</span>
@@ -154,7 +154,7 @@ export default function Header({
 
           <button
             onClick={() => handleModalClick("reminders")}
-            className="flex flex-col items-center justify-center p-2 text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-amber-300 border border-amber-800/50 rounded-lg transition text-center gap-1"
+            className="cursor-pointer flex flex-col items-center justify-center p-2 text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-amber-300 border border-amber-800/50 rounded-lg transition text-center gap-1"
           >
             <Bell className="w-4 h-4 text-amber-400" />
             <span>Reminders</span>
@@ -162,7 +162,7 @@ export default function Header({
 
           <button
             onClick={() => handleModalClick("nutrient")}
-            className="flex flex-col items-center justify-center p-2 text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-botanical-300 border border-botanical-800/50 rounded-lg transition text-center gap-1"
+            className="cursor-pointer flex flex-col items-center justify-center p-2 text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-botanical-300 border border-botanical-800/50 rounded-lg transition text-center gap-1"
           >
             <FlaskConical className="w-4 h-4 text-botanical-400" />
             <span>Nutrients</span>

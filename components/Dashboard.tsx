@@ -29,7 +29,7 @@ export interface Cycle {
   targetEc?: number;
   targetPh?: number;
   status?: "active" | "completed" | "archived";
-  environment?: "Indoor" | "Outdoor";
+  environment?: "Indoor" | "Outdoor" | "Green House";
   plantType?: string;
 }
 
@@ -138,10 +138,10 @@ export default function Dashboard({
           {/* Add Cycle Button */}
           <button
             onClick={onOpenNewCycleModal}
-            className="px-4 py-2 bg-botanical-500 hover:bg-botanical-400 text-slate-950 font-bold rounded-xl text-xs transition flex items-center space-x-1.5 shadow-lg shadow-botanical-950/40 shrink-0"
+            className="px-3 py-2 bg-botanical-500 hover:bg-botanical-400 text-slate-950 font-bold rounded-xl text-xs transition flex items-center md:space-x-1.5 shadow-lg shadow-botanical-950/40 shrink-0"
           >
             <Plus className="w-4 h-4" />
-            <span>New Cycle</span>
+            <span className="hidden md:block">New Cycle</span>
           </button>
         </div>
       </div>
@@ -282,9 +282,11 @@ export default function Dashboard({
               {/* Card Footer */}
               <div className="flex items-center justify-between pt-3 border-t border-slate-800/80">
                 <span className="text-[11px] text-slate-500 flex items-center space-x-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Started {formatDate(cycle.startDate)}</span>
-                  <span>•</span>
+                  <Calendar className="w-3.5 h-3.5 text-slate-400 hidden sm:block" />
+                  <span className="hidden sm:block">
+                    Started {formatDate(cycle.startDate)}
+                  </span>
+                  <span className="hidden sm:block">•</span>
                   <span className="text-slate-400 font-medium">
                     Day {getDaysElapsed(cycle.startDate)}
                   </span>
@@ -297,7 +299,8 @@ export default function Dashboard({
                   }}
                   className="px-3 py-1.5 bg-slate-800 group-hover:bg-botanical-500 group-hover:text-slate-950 text-slate-200 text-xs font-semibold rounded-xl transition-all duration-200 flex items-center space-x-1"
                 >
-                  <span>Open Logs & Chart</span>
+                  <span className="hidden md:block">Open Logs & Chart</span>
+                  <span className="md:hidden block truncate">Logs & Chart</span>
                   <ChevronRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition" />
                 </button>
               </div>

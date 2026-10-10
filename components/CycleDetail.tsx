@@ -248,7 +248,7 @@ export default function CycleDetail({
 
         {/* Stage Selector */}
         <div className="flex items-center space-x-1 bg-slate-900 border border-slate-800 p-1 rounded-xl overflow-x-auto">
-          {["seedling", "vegetative", "flowering", "harvested"].map((stage) => (
+          {["Seedling", "Vegetative", "Flowering", "Harvested"].map((stage) => (
             <button
               key={stage}
               onClick={async () => {
@@ -257,7 +257,7 @@ export default function CycleDetail({
                 setCurrentStage(stage);
                 onUpdateCycleStage(cycle.id, stage);
               }}
-              className={`px-3 py-1 rounded-lg text-xs font-medium capitalize transition whitespace-nowrap ${
+              className={`px-3 py-1 rounded-lg text-xs font-medium transition whitespace-nowrap ${
                 currentStage === stage
                   ? "bg-botanical-600 text-slate-950 font-bold"
                   : "text-slate-400 hover:text-slate-200"
