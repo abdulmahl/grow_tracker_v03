@@ -13,7 +13,7 @@ interface EditCycleModalProps {
     id: string;
     strainName: string;
     environment: "Indoor" | "Outdoor" | "Green House";
-    stage: string;
+    stage: "Seedling" | "Vegetative" | "Flowering" | "Harvested";
     medium: string;
     startDate: string;
     tentSize?: string;
@@ -40,7 +40,7 @@ export default function EditCycleModal({
   const [environment, setEnvironment] = useState<
     "Indoor" | "Outdoor" | "Green House"
   >(cycle?.environment || "Indoor");
-  const [stage, setStage] = useState(cycle?.stage || "Vegetative");
+  const [stage, setStage] = useState(cycle?.stage || "Seedling");
   const [medium, setMedium] = useState(
     cycle?.medium || "Coco Coir / Perlite (80/20)",
   );
@@ -135,7 +135,15 @@ export default function EditCycleModal({
               </label>
               <select
                 value={stage}
-                onChange={(e) => setStage(e.target.value)}
+                onChange={(e) =>
+                  setStage(
+                    e.target.value as
+                      | "Seedling"
+                      | "Vegetative"
+                      | "Flowering"
+                      | "Harvested",
+                  )
+                }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-botanical-500 capitalize"
               >
                 <option value="seedling">Seedling</option>
@@ -191,7 +199,7 @@ export default function EditCycleModal({
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-botanical-500"
               >
                 <option value="Sunlight">Sunlight</option>
-                <option value="Grow Light">Grow Light</option>
+                <option value="Grow-Light">Grow Light</option>
               </select>
             </div>
           </div>
