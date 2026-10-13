@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "Grow - Tracker - App",
   description: "Grow - Tracker",
 };
 
