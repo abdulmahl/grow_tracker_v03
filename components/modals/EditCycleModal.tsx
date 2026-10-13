@@ -54,6 +54,9 @@ export default function EditCycleModal({
   const [targetPh, setTargetPh] = useState(
     cycle?.targetPh ? String(cycle.targetPh) : "5.8",
   );
+  const [startDate, setStartDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
   const [status, setStatus] = useState<"active" | "completed" | "archived">(
     cycle?.status || "active",
   );
@@ -75,6 +78,7 @@ export default function EditCycleModal({
         medium,
         tentSize,
         lightSpec,
+        startDate,
         targetEc: parseFloat(targetEc) || 1.4,
         targetPh: parseFloat(targetPh) || 5.8,
         status,
@@ -236,6 +240,18 @@ export default function EditCycleModal({
                 <option value="Green-House">Green House</option>
               </select>
             </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-slate-300 mb-1">
+              Start Date
+            </label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-botanical-500"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
